@@ -1,0 +1,32 @@
+LOCAL VALIDATION
+================
+
+Static package check: PASSED
+Package: robonix.skill.sim2real 0.2.0
+Declared capabilities: 3
+
+Unit tests: PASSED
+Result: 12 passed
+
+Validated locally:
+- package manifest and required metadata
+- capability TOML and IDL references
+- execute/status/cancel long-task contract completeness
+- current Robonix Python @skill.mcp registration pattern
+- non-empty runtime implementation files
+- runtime configuration validation
+- task registry validation
+- safety filtering and unit conversion
+- VLA response parsing
+- asynchronous execution and status
+- deactivate/reactivate lifecycle behavior
+
+Not executed in this environment:
+- rbnx setup / rbnx validate
+- rbnx codegen / rbnx build
+- ROS2 code generation / colcon build
+- Atlas capability discovery
+- physical robot integration test
+
+Those checks require the target Robonix + ROS2 environment, generated MCP
+bindings, and the real camera/arm providers.

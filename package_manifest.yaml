@@ -1,0 +1,27 @@
+manifestVersion: 1
+package:
+  name: robonix.skill.sim2real
+  version: 0.2.0
+  description: Multi-task OpenVLA-OFT manipulation skill for Robonix.
+  license: MulanPSL-2.0
+  tags:
+    - skill
+    - vla
+    - openvla
+    - oft
+    - manipulation
+    - multitask
+    - piper
+  maintainers:
+    - Lingyue Zhang <zly3404842897@gmail.com>
+
+build: bash scripts/build.sh
+start: bash scripts/start.sh
+
+capabilities:
+  - name: robonix/skill/openvla_oft/execute
+    path: capabilities/execute.v1.toml
+  - name: robonix/skill/openvla_oft/execute/status
+    path: capabilities/execute_status.v1.toml
+  - name: robonix/skill/openvla_oft/execute/cancel
+    path: capabilities/execute_cancel.v1.toml

@@ -1,0 +1,14 @@
+tasks:
+  - task_id: pick_banana
+    instruction: pick up the banana
+    max_steps: 120
+    max_delta_rad: 0.04
+    execute_chunk_steps: 2
+    enabled: true
+
+  - task_id: put_banana_on_plate
+    instruction: put the banana on the plate
+    max_steps: 160
+    max_delta_rad: 0.035
+    execute_chunk_steps: 2
+    enabled: true

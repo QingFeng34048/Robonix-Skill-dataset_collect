@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robonix-sim2real-skill"
+version = "0.2.0"
+description = "Multi-task OpenVLA-OFT runtime skill for Robonix."
+readme = "readme.md"
+requires-python = ">=3.10"
+license = { text = "MulanPSL-2.0" }
+authors = [
+  { name = "Lingyue Zhang" },
+]
+dependencies = [
+  "numpy>=1.24",
+  "requests>=2.31",
+  "PyYAML>=6.0",
+  "opencv-python-headless>=4.8",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+]
+
+[tool.setuptools.packages.find]
+include = ["robonix_openvla_skill*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.pyright]
+pythonVersion = "3.10"
+typeCheckingMode = "basic"

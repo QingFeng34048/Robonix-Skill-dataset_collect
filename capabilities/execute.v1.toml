@@ -1,0 +1,9 @@
+id = "robonix/skill/openvla_oft/execute"
+version = 1
+kind = "skill"
+transport = "mcp"
+mode = "rpc"
+description = "Start an asynchronous OpenVLA-OFT manipulation task."
+
+[mcp]
+idl = "lib/srv/ExecuteTask.srv"

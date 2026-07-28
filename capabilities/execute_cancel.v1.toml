@@ -1,0 +1,9 @@
+id = "robonix/skill/openvla_oft/execute/cancel"
+version = 1
+kind = "skill"
+transport = "mcp"
+mode = "rpc"
+description = "Cancel an OpenVLA-OFT task run."
+
+[mcp]
+idl = "lib/srv/CancelTask.srv"

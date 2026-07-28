@@ -1,0 +1,46 @@
+# Deployment-manifest fragment. The instance name must equal the provider id
+# used at runtime. Replace provider ids and hardware limits for your robot.
+skill:
+  - name: openvla_oft
+    url: https://github.com/QingFeng34048/Robonix-Skill-Sim2Real.git
+    branch: master
+    config:
+      vla_server_url: http://127.0.0.1:8777/act
+      camera_provider_id: front_camera
+      arm_provider_id: piper_arm
+      task_config_path: configs/runtime/tasks.yaml
+
+      control_hz: 10.0
+      request_timeout_s: 10.0
+      task_timeout_s: 120.0
+      dependency_wait_timeout_s: 5.0
+      max_image_age_s: 1.0
+      max_state_age_s: 0.5
+      jpeg_quality: 90
+      max_concurrent_runs: 1
+      require_vla_healthcheck: false
+
+      enable_safety_filter: true
+      # REQUIRED: copy the six real joint limits from the deployed robot's
+      # URDF/driver. Do not use guessed values on real hardware.
+      joint_min_rad: []
+      joint_max_rad: []
+      default_max_delta_rad: 0.04
+
+      # Verify these values against the actual gripper driver.
+      gripper_min_m: 0.0
+      gripper_max_m: 0.08
+      model_gripper_mode: normalized_0_1
+
+      joint_names:
+        - joint1
+        - joint2
+        - joint3
+        - joint4
+        - joint5
+        - joint6
+      gripper_name: gripper
+      piper_command_metadata: true
+      joint_velocity_pct: 30.0
+      gripper_effort: 1.0
+      hold_position_on_cancel: true
