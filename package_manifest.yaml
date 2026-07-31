@@ -1,6 +1,6 @@
 manifestVersion: 1
 package:
-  name: robonix.skill.sim2real
+  name: robonix.skill.openvla_oft_accel
   version: 0.2.0
   description: Multi-task OpenVLA-OFT manipulation skill for Robonix.
   license: MulanPSL-2.0
