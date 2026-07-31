@@ -1,0 +1,113 @@
+project_name: piper_multitask_v1
+
+tasks:
+  - task_id: pick_banana
+    instruction: "pick up the banana"
+    init_pose: [0.547, 1.258, -1.552, 0.003, 1.315, -0.576, 1.0]
+    max_steps: 120
+    max_delta: 0.04
+    execute_chunk_steps: 2
+    enabled: true
+
+  - task_id: put_banana_on_plate
+    instruction: "put the banana on the plate"
+    init_pose: [0.547, 1.258, -1.552, 0.003, 1.315, -0.576, 1.0]
+    max_steps: 160
+    max_delta: 0.035
+    execute_chunk_steps: 2
+    enabled: true
+
+  - task_id: push_red_block
+    instruction: "push the red block forward"
+    init_pose: [0.547, 1.258, -1.552, 0.003, 1.315, -0.576, 1.0]
+    max_steps: 100
+    max_delta: 0.05
+    execute_chunk_steps: 4
+    enabled: true
+
+robot:
+  can_port: can0
+  rad_to_sdk_int: 57295.7795
+  piper_raw_to_degree: 0.001
+
+  gripper_open_sdk: 80000
+  gripper_close_sdk: 0
+  gripper_threshold_raw: 3000
+
+camera:
+  camera_id: 2
+  capture_res: [640, 480]
+  model_res: [224, 224]
+  flip_code: -1
+
+dataset:
+  name: piper_multitask
+  hdf5_root: outputs/dataset_hdf5
+  rlds_root: outputs/data_rlds
+  version: 1.0.0
+
+  exclude_fail: true
+  min_action_norm: 0.0
+  validation_ratio: 0.1
+
+collect:
+  fps: 10
+  default_task_id: pick_banana
+  return_to_init_after_episode: true
+
+convert:
+  merge_tasks: true
+  preserve_gripper_changes: true
+  random_seed: 42
+
+train:
+  vla_path: /path/to/openvla-7b
+  run_root_dir: outputs/checkpoints/piper_multitask
+
+  use_l1_regression: true
+  use_diffusion: false
+  use_film: false
+  use_proprio: true
+  num_images_in_input: 1
+
+  batch_size: 4
+  learning_rate: 0.00005
+  grad_accumulation_steps: 1
+  max_steps: 30000
+  save_freq: 1000
+  image_aug: true
+
+  use_lora: true
+  lora_rank: 32
+  lora_dropout: 0.0
+  merge_lora_during_training: false
+
+  shuffle_buffer_size: 100000
+  use_val_set: true
+  val_freq: 2000
+  val_time_limit: 180
+
+  wandb_entity: your-entity
+  wandb_project: openvla-oft
+  wandb_log_freq: 10
+
+server:
+  checkpoint_path: outputs/checkpoints/piper_multitask/latest
+  host: 0.0.0.0
+  port: 8001
+
+  save_images: false
+  save_dir: outputs/inference_images
+
+  center_crop: false
+  load_in_8bit: false
+  load_in_4bit: false
+  return_first_action_for_legacy: true
+
+client:
+  server_url: http://localhost:8001/act
+  default_task_id: pick_banana
+  control_freq: 10
+  request_timeout: 10.0
+  use_action_chunk: true
+

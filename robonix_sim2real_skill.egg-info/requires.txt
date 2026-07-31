@@ -1,0 +1,7 @@
+numpy>=1.24
+requests>=2.31
+PyYAML>=6.0
+opencv-python-headless>=4.8
+
+[dev]
+pytest>=8

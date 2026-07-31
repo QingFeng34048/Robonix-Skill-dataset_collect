@@ -1,0 +1,8 @@
+string task_id
+string instruction
+float32 timeout_s
+---
+bool accepted
+string run_id
+string detail
+
