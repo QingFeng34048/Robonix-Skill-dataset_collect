@@ -1,3 +1,4 @@
+**This Robonix Skill is provided and maintained by Prof. Xiang Chen's group (IFLab), School of Computer Science, Peking University.**
 <p align="center">
   <img src="images/robonix-logo.svg" alt="Robonix" width="420" />
 </p>
