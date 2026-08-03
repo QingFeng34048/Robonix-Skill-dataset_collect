@@ -3,7 +3,7 @@
   <img src="images/robonix-logo.svg" alt="Robonix" width="420" />
 </p>
 
-# Robonix-Sim2Real-Skill
+# Robonix-Skill-dataset_collect
 
 This project provides detailed guidelines to implement data collection, fine-tuning, deployment and optimization on physical robotic arms based on the VLA model！Specifically, we provide the following function:
 
