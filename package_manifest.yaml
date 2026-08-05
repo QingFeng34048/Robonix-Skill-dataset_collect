@@ -1,7 +1,7 @@
 manifestVersion: 1
 
 package:
-  name: robonix.skill.deployment.data.collection
+  name: robonix.skill.deployment_data_collection
   version: 0.1.0
   description: Collect task-conditioned robot demonstrations into HDF5 episodes.
   license: MulanPSL-2.0
