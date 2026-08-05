@@ -1,17 +1,17 @@
 manifestVersion: 1
+
 package:
-  name: robonix.skill.openvla_oft_accel
-  version: 0.2.0
-  description: Multi-task OpenVLA-OFT manipulation skill for Robonix.
+  name: robonix.skill.dataset_collect
+  version: 0.1.0
+  description: Collect task-conditioned robot demonstrations into HDF5 episodes.
   license: MulanPSL-2.0
   tags:
     - skill
-    - vla
-    - openvla
-    - oft
+    - dataset
+    - collection
+    - hdf5
     - manipulation
-    - multitask
-    - piper
+    - sim2real
   maintainers:
     - Lingyue Zhang <zly3404842897@gmail.com>
 
@@ -19,9 +19,14 @@ build: bash scripts/build.sh
 start: bash scripts/start.sh
 
 capabilities:
-  - name: robonix/skill/openvla_oft/execute
-    path: capabilities/execute.v1.toml
-  - name: robonix/skill/openvla_oft/execute/status
-    path: capabilities/execute_status.v1.toml
-  - name: robonix/skill/openvla_oft/execute/cancel
-    path: capabilities/execute_cancel.v1.toml
+  - name: robonix/skill/dataset_collect/episode/start
+    path: capabilities/episode_start.v1.toml
+
+  - name: robonix/skill/dataset_collect/episode/finish
+    path: capabilities/episode_finish.v1.toml
+
+  - name: robonix/skill/dataset_collect/status
+    path: capabilities/status.v1.toml
+
+  - name: robonix/skill/dataset_collect/cancel
+    path: capabilities/cancel.v1.toml
