@@ -1,7 +1,0 @@
-string run_id
----
-string state
-string detail
-float32 progress
-int32 current_step
-int32 max_steps
