@@ -1,1 +1,10 @@
+[contract]
+id = "robonix/skill/dataset_collect/status"
+version = "1"
+kind = "skill"
+idl = "dataset_collect/srv/GetStatus.srv"
+description = "Query the status of a dataset collection run."
+
+[mode]
+type = "rpc"
 
