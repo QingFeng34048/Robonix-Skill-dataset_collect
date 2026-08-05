@@ -1,9 +1,0 @@
-id = "robonix/skill/openvla_oft/execute/status"
-version = 1
-kind = "skill"
-transport = "mcp"
-mode = "rpc"
-description = "Query an OpenVLA-OFT task run."
-
-[mcp]
-idl = "lib/srv/GetTaskStatus.srv"
