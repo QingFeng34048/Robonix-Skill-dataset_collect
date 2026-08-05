@@ -2,50 +2,76 @@ from pathlib import Path
 
 import pytest
 
-from robonix_openvla_skill.runtime_config import RuntimeConfig
+from dataset_collect_skill.runtime_config import (
+    RuntimeConfig,
+)
 
 
-def _root(tmp_path: Path) -> Path:
-    path = tmp_path / "configs/runtime"
-    path.mkdir(parents=True)
-    (path / "tasks.yaml").write_text(
-        "tasks:\\n  - task_id: demo\\n"
-        "    instruction: demo\\n",
-        encoding="utf-8",
-    )
-    return tmp_path
-
-
-def test_from_dict_resolves_package_relative_path(tmp_path: Path) -> None:
-    root = _root(tmp_path)
+def test_resolves_workspace_and_output(
+    tmp_path: Path,
+) -> None:
     config = RuntimeConfig.from_dict(
         {
-            "task_config_path": "configs/runtime/tasks.yaml",
-            "joint_min_rad": [-2.0] * 6,
-            "joint_max_rad": [2.0] * 6,
+            "workspace_root": "workspace",
+            "output_subdir": "hdf5",
         },
-        package_root=root,
+        base_dir=tmp_path,
     )
-    config.validate()
-    assert config.task_config_path == (
-        root / "configs/runtime/tasks.yaml"
+
+    assert config.workspace_root == (
+        tmp_path / "workspace"
     ).resolve()
 
+    assert config.output_root == (
+        tmp_path / "workspace" / "hdf5"
+    ).resolve()
 
-def test_unknown_key_is_rejected(tmp_path: Path) -> None:
-    root = _root(tmp_path)
-    with pytest.raises(ValueError, match="unknown runtime config"):
+    assert config.output_root.is_dir()
+
+
+def test_rejects_output_path_escape(
+    tmp_path: Path,
+) -> None:
+    with pytest.raises(
+        ValueError,
+        match="escapes workspace_root",
+    ):
         RuntimeConfig.from_dict(
-            {"task_config_path": "configs/runtime/tasks.yaml", "typo": 1},
-            package_root=root,
+            {
+                "workspace_root": "workspace",
+                "output_subdir": "../outside",
+            },
+            base_dir=tmp_path,
         )
 
 
-def test_real_joint_limits_are_required(tmp_path: Path) -> None:
-    root = _root(tmp_path)
-    config = RuntimeConfig.from_dict(
-        {"task_config_path": "configs/runtime/tasks.yaml"},
-        package_root=root,
-    )
-    with pytest.raises(ValueError, match="hardware-specific"):
-        config.validate()
+def test_rejects_unknown_config_key(
+    tmp_path: Path,
+) -> None:
+    with pytest.raises(
+        ValueError,
+        match="unknown runtime config",
+    ):
+        RuntimeConfig.from_dict(
+            {
+                "workspace_root": "workspace",
+                "unknown_option": True,
+            },
+            base_dir=tmp_path,
+        )
+
+
+def test_rejects_invalid_gripper_mode(
+    tmp_path: Path,
+) -> None:
+    with pytest.raises(
+        ValueError,
+        match="gripper_state_mode",
+    ):
+        RuntimeConfig.from_dict(
+            {
+                "workspace_root": "workspace",
+                "gripper_state_mode": "degrees",
+            },
+            base_dir=tmp_path,
+        )
