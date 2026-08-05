@@ -1,1 +1,7 @@
+string task_id
+string instruction
+---
+bool accepted
+string run_id
+string detail
 
