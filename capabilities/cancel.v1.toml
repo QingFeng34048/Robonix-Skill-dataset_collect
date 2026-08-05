@@ -1,1 +1,10 @@
+[contract]
+id = "robonix/skill/dataset_collect/cancel"
+version = "1"
+kind = "skill"
+idl = "dataset_collect/srv/CancelCollection.srv"
+description = "Cancel and discard a dataset collection run."
+
+[mode]
+type = "rpc"
 
